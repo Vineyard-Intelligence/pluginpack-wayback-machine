@@ -1,0 +1,171 @@
+{
+  "identifier": "run.vineyard.pluginpacks.wayback_machine",
+  "content_type": "vineyard:pluginpack",
+  "name": "Wayback Machine",
+  "version": "1.0.0",
+  "description": "Queries the Internet Archive Wayback Machine for the selected domain or URL: capture history via the CDX API and existence checks via the Availability API. Desktop only — the archive sends no CORS headers, so queries run through the desktop shell's anonymous probe.",
+  "author": {
+    "name": "VINEYARD",
+    "url": "https://vineyard.run"
+  },
+  "license": "Apache-2.0",
+  "icon": "history",
+  "platforms": {
+    "primary": "desktop",
+    "web": {
+      "runtime": "sandbox-js",
+      "entry": "dist/pack.mjs"
+    },
+    "desktop": {
+      "runtime": "sandbox-js",
+      "entry": "dist/pack.mjs",
+      "min_app_version": "0.1.0"
+    }
+  },
+  "distribution": {
+    "kind": "git",
+    "repository": "https://github.com/Vineyard-Intelligence/pluginpack-wayback-machine",
+    "ref": "v1.0.0",
+    "path": "plugins/wayback-machine.manifest.json"
+  },
+  "plugins": [
+    {
+      "identifier": "run.vineyard.plugins.wayback_snapshot_history",
+      "content_type": "vineyard:plugin",
+      "name": "Wayback Snapshot History",
+      "version": "1.0.0",
+      "description": "Queries the Internet Archive CDX API for the selected domain/URL and writes up to 50 captures as URL nodes pointing at their replay pages, linked to the seed node. Optionally drops captures whose content digest repeats (identical snapshots) and restricts the window with from/to (YYYYMMDD). Desktop only — web.archive.org sends no CORS headers.",
+      "icon": "history",
+      "platforms": {
+        "primary": "desktop",
+        "web": {
+          "runtime": "sandbox-js",
+          "entry": "dist/pack.mjs"
+        },
+        "desktop": {
+          "runtime": "sandbox-js",
+          "entry": "dist/pack.mjs",
+          "min_app_version": "0.1.0"
+        }
+      },
+      "io": {
+        "consumes": [
+          {
+            "typepack": "run.vineyard.typepacks.infrastructure",
+            "category": "infrastructure",
+            "name": "domain"
+          },
+          {
+            "typepack": "run.vineyard.typepacks.infrastructure",
+            "category": "infrastructure",
+            "name": "url"
+          }
+        ],
+        "produces": [
+          {
+            "typepack": "run.vineyard.typepacks.infrastructure",
+            "category": "infrastructure",
+            "name": "url"
+          }
+        ]
+      },
+      "params": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "string",
+            "pattern": "^\\d{8}$",
+            "description": "Earliest capture date, YYYYMMDD. Empty = no lower bound."
+          },
+          "to": {
+            "type": "string",
+            "pattern": "^\\d{8}$",
+            "description": "Latest capture date, YYYYMMDD. Empty = no upper bound."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 500,
+            "default": 50,
+            "description": "Maximum captures to fetch."
+          },
+          "drop_duplicates": {
+            "type": "boolean",
+            "default": true,
+            "description": "Drop captures whose content digest repeats an earlier one. Identical snapshots are usually the same page re-crawled, not a real change."
+          }
+        }
+      },
+      "scopes": {
+        "graph": [
+          "node:read",
+          "node:create",
+          "edge:create"
+        ],
+        "web_probe": {
+          "purpose": "Query the Wayback Machine CDX API for the capture history of the selected domain/URL."
+        }
+      },
+      "lifecycle": {
+        "persistence": "opt-in",
+        "controls": [
+          "progress",
+          "cancel"
+        ],
+        "progress": "determinate"
+      }
+    },
+    {
+      "identifier": "run.vineyard.plugins.wayback_available",
+      "content_type": "vineyard:plugin",
+      "name": "Wayback Availability",
+      "version": "1.0.0",
+      "description": "Asks the Internet Archive Availability API whether the selected domain/URL has a closest snapshot and records the result on the node itself (exists, snapshot timestamp, status). Desktop only — archive.org sends no CORS headers.",
+      "icon": "circle-check",
+      "platforms": {
+        "primary": "desktop",
+        "web": {
+          "runtime": "sandbox-js",
+          "entry": "dist/pack.mjs"
+        },
+        "desktop": {
+          "runtime": "sandbox-js",
+          "entry": "dist/pack.mjs",
+          "min_app_version": "0.1.0"
+        }
+      },
+      "io": {
+        "consumes": [
+          {
+            "typepack": "run.vineyard.typepacks.infrastructure",
+            "category": "infrastructure",
+            "name": "domain"
+          },
+          {
+            "typepack": "run.vineyard.typepacks.infrastructure",
+            "category": "infrastructure",
+            "name": "url"
+          }
+        ],
+        "produces": []
+      },
+      "scopes": {
+        "graph": [
+          "node:read",
+          "node:update"
+        ],
+        "web_probe": {
+          "purpose": "Query the Internet Archive Availability API for a closest snapshot of the selected domain/URL."
+        }
+      },
+      "lifecycle": {
+        "persistence": "opt-in",
+        "controls": [
+          "progress",
+          "cancel"
+        ],
+        "progress": "determinate"
+      }
+    }
+  ]
+}
