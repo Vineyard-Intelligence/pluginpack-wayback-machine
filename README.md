@@ -12,7 +12,7 @@ no credentials, no redirects). In the web build the plugin says so rather than h
 ## Plugins
 
 - **Wayback Snapshot History** (`run.vineyard.plugins.wayback_snapshot_history`) — queries
-  the CDX API and writes up to 50 captures as `infrastructure.url` nodes pointing at their
+  the CDX API and writes up to 50 captures as `web.url` nodes pointing at their
   replay pages (`https://web.archive.org/web/{timestamp}/{original}`), each linked to the
   seed node with a `has archive` edge. Captures carry `wayback_timestamp`,
   `wayback_digest`, and `wayback_mimetype` in node data.
