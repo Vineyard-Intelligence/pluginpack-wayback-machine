@@ -2,7 +2,7 @@
   "identifier": "run.vineyard.pluginpacks.wayback_machine",
   "content_type": "vineyard:pluginpack",
   "name": "Wayback Machine",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Queries the Internet Archive Wayback Machine for the selected domain or URL: capture history via the CDX API and existence checks via the Availability API. Desktop only — the archive sends no CORS headers, so queries run through the desktop shell's anonymous probe.",
   "author": {
     "name": "VINEYARD",
@@ -25,7 +25,7 @@
   "distribution": {
     "kind": "git",
     "repository": "https://github.com/Vineyard-Intelligence/pluginpack-wayback-machine",
-    "ref": "v1.0.0",
+    "ref": "v1.1.0",
     "path": "plugins/wayback-machine.manifest.json"
   },
   "plugins": [
@@ -33,7 +33,7 @@
       "identifier": "run.vineyard.plugins.wayback_snapshot_history",
       "content_type": "vineyard:plugin",
       "name": "Wayback Snapshot History",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "description": "Queries the Internet Archive CDX API for the selected domain/URL and writes up to 50 captures as URL nodes pointing at their replay pages, linked to the seed node. Optionally drops captures whose content digest repeats (identical snapshots) and restricts the window with from/to (YYYYMMDD). Desktop only — web.archive.org sends no CORS headers.",
       "icon": "history",
       "platforms": {
@@ -57,14 +57,14 @@
           },
           {
             "typepack": "run.vineyard.typepacks.infrastructure",
-            "category": "infrastructure",
+            "category": "web",
             "name": "url"
           }
         ],
         "produces": [
           {
             "typepack": "run.vineyard.typepacks.infrastructure",
-            "category": "infrastructure",
+            "category": "web",
             "name": "url"
           }
         ]
@@ -119,7 +119,7 @@
       "identifier": "run.vineyard.plugins.wayback_available",
       "content_type": "vineyard:plugin",
       "name": "Wayback Availability",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "description": "Asks the Internet Archive Availability API whether the selected domain/URL has a closest snapshot and records the result on the node itself (exists, snapshot timestamp, status). Desktop only — archive.org sends no CORS headers.",
       "icon": "circle-check",
       "platforms": {
@@ -143,7 +143,7 @@
           },
           {
             "typepack": "run.vineyard.typepacks.infrastructure",
-            "category": "infrastructure",
+            "category": "web",
             "name": "url"
           }
         ],
