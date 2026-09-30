@@ -5,9 +5,8 @@ selected domain or URL — capture history via the **CDX API** and existence che
 the **Availability API**.
 
 **Desktop only.** Neither `web.archive.org` nor `archive.org` sends
-`access-control-allow-origin`, so a browser cannot read the responses. Queries run through
-the desktop shell's anonymous, SSRF-guarded `web_probe` (main-process fetch, no cookies,
-no credentials, no redirects). In the web build the plugin says so rather than half-working.
+CORS headers, so a browser cannot read the responses. In the web build the plugin says so
+rather than half-working.
 
 ## Plugins
 
@@ -30,20 +29,13 @@ no credentials, no redirects). In the web build the plugin says so rather than h
 
 ## How it works
 
-- The CDX response is a JSON array of arrays; the first row is the header. Rows are mapped
-  **by header name, not index**, so a server that reorders columns cannot corrupt the graph.
-- Replay URLs are built only from CDX-provided `timestamp` + `original` — never from user
-  input — and query parameters are encoded with `URLSearchParams`.
-- Requests are bounded: `maxBytes` caps the response body (4 MB for CDX, 64 KB for
-  availability), and every non-200 / non-JSON / rate-limited response becomes a readable
-  summary instead of an exception.
+Response bodies are capped (4 MB for CDX, 64 KB for availability), and every non-200 /
+non-JSON / rate-limited response becomes a readable summary instead of an exception.
 
 ## Layout
 
 - `plugins/wayback-machine.manifest.json` — the pack manifest (catalog entry source).
-- `dist/pack.mjs` — the runnable bundle, compiled from
-  `frontend/app/_views/projects/[id]/components-internal/plugins/reference/wayback-machine-pack.ts`
-  by `frontend/scripts/build-packs.mjs`.
+- `dist/pack.mjs` — the runnable bundle.
 
 ## License
 
