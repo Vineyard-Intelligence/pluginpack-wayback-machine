@@ -2,8 +2,8 @@
   "identifier": "run.vineyard.pluginpacks.wayback_machine",
   "content_type": "vineyard:pluginpack",
   "name": "Wayback Machine",
-  "version": "1.2.0",
-  "description": "Queries the Internet Archive Wayback Machine for every selected domain or URL: capture history via the CDX API and existence checks via the Availability API. Runs the whole selection in one pass. Desktop only — the archive sends no CORS headers, so queries run through the desktop shell's anonymous probe.",
+  "version": "1.2.1",
+  "description": "Queries the Internet Archive Wayback Machine for the capture history and archive availability of selected domains and URLs. Desktop only.",
   "author": {
     "name": "VINEYARD",
     "url": "https://vineyard.run"
@@ -33,8 +33,8 @@
       "identifier": "run.vineyard.plugins.wayback_snapshot_history",
       "content_type": "vineyard:plugin",
       "name": "Wayback Snapshot History",
-      "version": "1.2.0",
-      "description": "Queries the Internet Archive CDX API for each selected domain/URL and writes up to 50 captures per node as URL nodes pointing at their replay pages, linked to the seed. Optionally drops captures whose content digest repeats (identical snapshots) and restricts the window with from/to (YYYYMMDD). Desktop only — web.archive.org sends no CORS headers.",
+      "version": "1.2.1",
+      "description": "Lists Wayback Machine captures of each selected Domain or URL and creates one URL node per capture (replay URL, original URL, HTTP status, timestamp, digest) linked \"has archive\" from the seed. Up to limit captures per node (default 50, max 500), filtered by the from/to and drop_duplicates params. Desktop only.",
       "icon": "history",
       "platforms": {
         "primary": "desktop",
@@ -119,8 +119,8 @@
       "identifier": "run.vineyard.plugins.wayback_available",
       "content_type": "vineyard:plugin",
       "name": "Wayback Availability",
-      "version": "1.2.0",
-      "description": "Asks the Internet Archive Availability API whether each selected domain/URL has a closest snapshot and records the result on the node itself (exists, snapshot timestamp, status). Desktop only — archive.org sends no CORS headers.",
+      "version": "1.2.1",
+      "description": "Checks whether the Wayback Machine has a capture of each selected Domain or URL and writes the result on the node: wayback_available, plus wayback_snapshot_url, wayback_snapshot_timestamp and wayback_snapshot_status of the closest capture. Creates no nodes. Desktop only.",
       "icon": "circle-check",
       "platforms": {
         "primary": "desktop",
