@@ -2,7 +2,7 @@
   "identifier": "run.vineyard.pluginpacks.wayback_machine",
   "content_type": "vineyard:pluginpack",
   "name": "Wayback Machine",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Queries the Internet Archive Wayback Machine for the capture history and archive availability of selected domains and URLs. Desktop only.",
   "author": {
     "name": "VINEYARD",
@@ -33,7 +33,7 @@
       "identifier": "run.vineyard.plugins.wayback_snapshot_history",
       "content_type": "vineyard:plugin",
       "name": "Wayback Snapshot History",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "description": "Lists Wayback Machine captures of each selected Domain or URL and creates one URL node per capture (replay URL, original URL, HTTP status, timestamp, digest) linked \"has archive\" from the seed. Up to limit captures per node (default 50, max 500), filtered by the from/to and drop_duplicates params. Desktop only.",
       "icon": "history",
       "platforms": {
@@ -87,12 +87,12 @@
             "minimum": 1,
             "maximum": 500,
             "default": 50,
-            "description": "Maximum captures to fetch."
+            "description": "Maximum captures to fetch per node, 1–500. Default 50."
           },
           "drop_duplicates": {
             "type": "boolean",
             "default": true,
-            "description": "Drop captures whose content digest repeats an earlier one. Identical snapshots are usually the same page re-crawled, not a real change."
+            "description": "Keep only the newest capture of each content digest. On by default."
           }
         }
       },
@@ -103,7 +103,7 @@
           "edge:create"
         ],
         "web_probe": {
-          "purpose": "Query the Wayback Machine CDX API for the capture history of the selected domain/URL."
+          "purpose": "Fetch the Wayback Machine capture history of each selected domain or URL."
         }
       },
       "lifecycle": {
@@ -119,7 +119,7 @@
       "identifier": "run.vineyard.plugins.wayback_available",
       "content_type": "vineyard:plugin",
       "name": "Wayback Availability",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "description": "Checks whether the Wayback Machine has a capture of each selected Domain or URL and writes the result on the node: wayback_available, plus wayback_snapshot_url, wayback_snapshot_timestamp and wayback_snapshot_status of the closest capture. Creates no nodes. Desktop only.",
       "icon": "circle-check",
       "platforms": {
@@ -155,7 +155,7 @@
           "node:update"
         ],
         "web_probe": {
-          "purpose": "Query the Internet Archive Availability API for a closest snapshot of the selected domain/URL."
+          "purpose": "Check whether the Wayback Machine has a capture of each selected domain or URL."
         }
       },
       "lifecycle": {
