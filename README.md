@@ -35,7 +35,18 @@ non-JSON / rate-limited response becomes a readable summary instead of an except
 ## Layout
 
 - `plugins/wayback-machine.manifest.json` — the pack manifest (catalog entry source).
+- `src/` — the source of the bundle.
 - `dist/pack.mjs` — the runnable bundle.
+
+## Building from source
+
+`src/` is the source of `dist/pack.mjs`. The build pins esbuild, so the published bundle can be
+checked against the source:
+
+```bash
+node build.mjs
+git diff --exit-code dist/pack.mjs
+```
 
 ## License
 
