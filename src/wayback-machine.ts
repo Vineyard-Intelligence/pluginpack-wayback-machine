@@ -133,7 +133,7 @@ const snapshotHistory = definePlugin({
         identifier: 'run.vineyard.plugins.wayback_snapshot_history',
         content_type: 'vineyard:plugin',
         name: 'Wayback Snapshot History',
-        version: '1.2.2',
+        version: '1.2.3',
         description:
             'Lists Wayback Machine captures of each selected Domain or URL and creates one URL node per capture (replay URL, original URL, HTTP status, timestamp, digest) linked "has archive" from the seed. Up to limit captures per node (default 50, max 500), filtered by the from/to and drop_duplicates params. Desktop only.',
         icon: 'history',
@@ -327,7 +327,7 @@ const availability = definePlugin({
         identifier: 'run.vineyard.plugins.wayback_available',
         content_type: 'vineyard:plugin',
         name: 'Wayback Availability',
-        version: '1.2.2',
+        version: '1.2.3',
         description:
             'Checks whether the Wayback Machine has a capture of each selected Domain or URL and writes the result on the node: wayback_available, plus wayback_snapshot_url, wayback_snapshot_timestamp and wayback_snapshot_status of the closest capture. Creates no nodes. Desktop only.',
         icon: 'circle-check',
@@ -454,7 +454,7 @@ export default definePluginPack({
     identifier: 'run.vineyard.pluginpacks.wayback_machine',
     content_type: 'vineyard:pluginpack',
     name: 'Wayback Machine',
-    version: '1.2.2',
+    version: '1.2.3',
     description:
         'Queries the Internet Archive Wayback Machine for the capture history and archive availability of selected domains and URLs. Desktop only.',
     plugins: [snapshotHistory, availability],
