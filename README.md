@@ -18,9 +18,9 @@ rather than half-working.
   - `from` / `to` (`YYYYMMDD`) — restrict the capture window. Empty = unbounded.
   - `limit` — max captures (default 50, up to 500). Newest N are fetched, then written
     oldest → newest so the graph reads as a timeline.
-  - `drop_duplicates` (checkbox, default on) — drops captures whose content **digest**
-    repeats an earlier one. Identical snapshots are usually the same page re-crawled, not
-    a real change; leaving this on keeps the timeline to actual content states.
+  - `drop_duplicates` (checkbox, default on) — keeps only the **newest** capture of each
+    content **digest** among those fetched. Identical snapshots are usually the same page
+    re-crawled, not a real change; leaving this on keeps the timeline to actual content states.
 
 - **Wayback Availability** (`run.vineyard.plugins.wayback_available`) — asks the
   Availability API whether a closest snapshot exists and records the result on the node
